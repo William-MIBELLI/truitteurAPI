@@ -43,10 +43,19 @@ exports.addResponseCountOnPost = async (postId) => {
 }
 
 exports.isAlreadyFriends = (sender, receiver) => {
-    const onSenderList = sender.friendsList.find(receiver._id)
-    const onReceiverList = receiver.friendsList.find(sender._id)
+    const onSenderList = sender.friendsList.find(f => f.friendId.toString() === receiver._id.toString())
+    const onReceiverList = receiver.friendsList.find(f => f.friendId.toString() === sender._id.toString())
     if(onSenderList || onReceiverList){
-        console.log('ils sont deja amis')
+        return true
+    }
+    return false
+}
+
+exports.SenderGotFriendsRequest = (receiver, userId) => {
+    console.log('receiver : ',receiver)
+    console.log(userId)
+    const onSentRequest = receiver.sentRequest.find(r => r.userId.toString() === userId.toString())
+    if(onSentRequest){
         return true
     }
     return false

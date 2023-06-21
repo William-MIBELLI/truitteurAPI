@@ -49,7 +49,6 @@ exports.logIn = async (req, res, next) => {
             name,
             _id
         }, 'secretString', { expiresIn: '24h'})
-        console.log(user)
         res.status(200).json({ user : {...user._doc, password: null}, token, status: 200})
     } catch (error) {
         next(error)
